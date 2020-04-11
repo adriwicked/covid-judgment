@@ -8,8 +8,9 @@ export default {
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      legend: {
-        display: false
+      tooltips: {
+        mode: 'nearest',
+        intersect: false
       }
     }
   }),
