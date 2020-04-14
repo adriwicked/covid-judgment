@@ -22,7 +22,16 @@ export default {
       responsive: true,
       maintainAspectRatio: false,
       tooltips: TOOLTIPS,
-      legend: { display: false },
+      legend: { 
+        position: 'bottom',
+        labels: {
+          fontSize: 14,
+          fontColor: '#fff',
+          fontStyle: 'bold',
+          boxWidth: 15,
+          padding: 20
+        }
+      },
       elements: {
         point: {
           radius: 4,
@@ -43,8 +52,8 @@ export default {
           },
           gridLines: {
             color: '#333',
-            zeroLineWidth: 2,
-            zeroLineColor: '#999'
+            zeroLineWidth: 3,
+            zeroLineColor: '#fff'
           }
         }],
         xAxes: [{
@@ -55,8 +64,8 @@ export default {
           },
           gridLines: {
             color: '#333',
-            zeroLineWidth: 2,
-            zeroLineColor: '#999'
+            zeroLineWidth: 3,
+            zeroLineColor: '#fff'
           }
         }]
       }

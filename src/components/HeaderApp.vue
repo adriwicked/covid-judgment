@@ -1,6 +1,6 @@
 <template>
   <div class="header-container">
-    <h1>COVID GOVERNMENTS RESPONSES</h1>
+    <h1>CRISIS DEL COVID19</h1>
   </div>
 </template>
 
@@ -13,7 +13,7 @@ export default {
 <style lang="scss">
 .header-container {
   margin-bottom: 3rem;
-  padding: 20px;
+  padding: 20px 0;
   text-align: center;
   background-color: #e8bd13;
 

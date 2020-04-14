@@ -1,18 +1,18 @@
 <template>
-  <div class="home">    
+  <div class="home">
+    <section class="title">
+      <h1>Muertos en España por covid19: <span>{{deaths}}</span></h1>
+    </section>
     <div class="chartContainer">
-      <spain-daily-deaths
-        v-if="dailyDeathsData"
-        :chart-data="dailyDeathsData"
-      ></spain-daily-deaths>
+      <spain-daily-deaths v-if="dailyDeathsData" :chart-data="dailyDeathsData"></spain-daily-deaths>
     </div>
   </div>
 </template>
 
 <script>
-import { getSpainTotalDeaths } from "../services/covid19"
-import spainTotalDeaths from "../components/spainTotalDeaths"
-import spainDailyDeaths from "../components/spainDailyDeaths"
+import { getSpainTotalDeaths } from "../services/covid19";
+import spainTotalDeaths from "../components/spainTotalDeaths";
+import spainDailyDeaths from "../components/spainDailyDeaths";
 
 export default {
   name: "Home",
@@ -22,49 +22,58 @@ export default {
   },
   data() {
     return {
-      deaths: {
-        type: Number,
-        default: 0
-      },
+      deaths: Number,
       totalDeathsData: null,
       dailyDeathsData: null
-    }
+    };
   },
   created() {
     getSpainTotalDeaths().then(({ data: days }) => {
-      this.deaths = days[days.length - 1].Cases
+      this.deaths = days[days.length - 1].Cases;
 
-      days = days.filter(day => day.Cases > 0)
+      days = days.filter(day => day.Cases > 0);
 
-      const dates = days.map(day => this.parseDate(day.Date))
-      const deaths = days.map(day => day.Cases)
+      const dates = days.map(day => this.parseDate(day.Date));
+      const deaths = days.map(day => day.Cases);
 
-      const dailyDeaths = deaths.map((accumulated, i, deaths) => accumulated - deaths[i - 1])
+      const dailyDeaths = deaths.map((accumulated, i, deaths) => accumulated - deaths[i - 1]);
       this.dailyDeathsData = {
         labels: dates,
-        datasets: [{
-          label: "Daily deaths in Spain",       
-          data: dailyDeaths
-        }]
-      }
-    })
+        datasets: [
+          {
+            label: "Muertos diarios en España",
+            data: dailyDeaths
+          }
+        ]
+      };
+    });
   },
   methods: {
     parseDate(dateString) {
-      const date = new Date(dateString)
-      return `${date.getDate()}/${date.getMonth() + 1}`
+      const date = new Date(dateString);
+      return `${date.getDate()}/${date.getMonth() + 1}`;
     }
   }
-}
+};
 </script>
 
 <style lang="scss">
-  .home {
-    display: flex;
-    justify-content: center;
+.title {
+  margin-bottom: 2rem;
+
+  span {
+    color: #e8bd13;
   }
+}
+
+.home {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
 .chartContainer {
-  width: 80%;
+  width: 90%;
 }
 </style>
