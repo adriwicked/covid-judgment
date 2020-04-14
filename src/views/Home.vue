@@ -1,14 +1,8 @@
 <template>
-  <div class="home">
-    <h1>Número de muertos en España: {{deaths}}.</h1>
+  <div class="home">    
     <div class="chartContainer">
-      <spain-total-deaths
-        v-if="totalDeathsData"
-        :chart-data="totalDeathsData"
-      ></spain-total-deaths>
-      <br>
       <spain-daily-deaths
-        v-if="totalDeathsData"
+        v-if="dailyDeathsData"
         :chart-data="dailyDeathsData"
       ></spain-daily-deaths>
     </div>
@@ -41,26 +35,15 @@ export default {
       this.deaths = days[days.length - 1].Cases
 
       days = days.filter(day => day.Cases > 0)
+
       const dates = days.map(day => this.parseDate(day.Date))
       const deaths = days.map(day => day.Cases)
-      this.totalDeathsData = {
-        labels: dates,
-        datasets: [{
-          label: "Total deaths in Spain",
-          borderColor: 'rgb(216, 34, 34, 0.5)',
-          backgroundColor: 'rgb(216, 34, 34, 0.2)',
-          lineTension: 0.3,
-          data: deaths
-        }]
-      }
 
       const dailyDeaths = deaths.map((accumulated, i, deaths) => accumulated - deaths[i - 1])
       this.dailyDeathsData = {
         labels: dates,
         datasets: [{
-          label: "Daily deaths in Spain",
-          backgroundColor: 'rgb(17, 150, 233, 1)',
-          lineTension: 0.3,
+          label: "Daily deaths in Spain",       
           data: dailyDeaths
         }]
       }
@@ -74,3 +57,14 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+  .home {
+    display: flex;
+    justify-content: center;
+  }
+
+.chartContainer {
+  width: 80%;
+}
+</style>
