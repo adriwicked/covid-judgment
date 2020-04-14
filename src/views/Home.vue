@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <section class="title">
-      <h1>Muertos en España por covid19: <span>{{deaths}}</span></h1>
+      <h1>Muertos en España por COVID19: <span>{{deaths}}</span></h1>
     </section>
     <div class="chartContainer">
       <spain-daily-deaths v-if="dailyDeathsData" :chart-data="dailyDeathsData"></spain-daily-deaths>
@@ -36,7 +36,9 @@ export default {
       const dates = days.map(day => this.parseDate(day.Date));
       const deaths = days.map(day => day.Cases);
 
-      const dailyDeaths = deaths.map((accumulated, i, deaths) => accumulated - deaths[i - 1]);
+      const dailyDeaths = deaths.map(
+        (accumulated, i, deaths) => accumulated - deaths[i - 1]
+      );
       this.dailyDeathsData = {
         labels: dates,
         datasets: [
@@ -74,6 +76,9 @@ export default {
 }
 
 .chartContainer {
-  width: 90%;
+  width: 80%;
+  padding: 3rem 2rem;
+  background-color: #252429;
+  border-radius: 10px;
 }
 </style>
